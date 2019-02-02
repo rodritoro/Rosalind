@@ -1,10 +1,20 @@
+"""
+Problem
+Given: A string s of length at most 200 letters and four integers a, b, c and d.
+
+Return: The slice of this string from indices a through b and c through d (with space in between), inclusively. In other words, we should include elements s[b] and s[d] in our slice.
+
+Sample Dataset
+HumptyDumptysatonawallHumptyDumptyhadagreatfallAlltheKingshorsesandalltheKingsmenCouldntputHumptyDumptyinhisplaceagain.
+22 27 97 102
+Sample Output
+Humpty Dumpty
+"""
+
 import argparse
 
 sample_string = 'HumptyDumptysatonawallHumptyDumptyhadagreatfallAlltheKingshorsesandalltheKingsmenCouldntputHumptyDumptyinhisplaceagain.'
 sample_list = [22, 27, 97, 102]
-
-real_string = 'ItfPgxhzHBoKWgzyH5XXBX0Tf7j3fxBbqlLnkoTMfCbZQoqxweDAi1jZsyqO1c0pMSffjavRR4pZCdz4AlE6NBMiRMegophrysbeC6DVmYuEZeAwSM65ywip4Blnz0himalayensisT6OXsc53d8ORdNfT5jrycUaOlpNoJkN2e3RwwbVCgcHIeX.'
-real_list = [89, 97, 126, 137]
 
 def get_args():
     parser = argparse.ArgumentParser()
