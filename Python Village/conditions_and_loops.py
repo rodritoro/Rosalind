@@ -23,7 +23,7 @@ def get_args():
 def add_odd_ints(start, end):
     total = 0
     for i in range(start, end):
-        if i%2 != 0:
+        if i % 2 != 0:
             total += i
     return total
 
