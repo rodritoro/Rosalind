@@ -13,3 +13,29 @@ GATGGAACTTGACTACGTAAATT
 Sample Output
 GAUGGAACUUGACUACGUAAAUU
 """
+
+import argparse
+
+sample_dataset = 'GATGGAACTTGACTACGTAAATT'
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i', '--input-file', required=False)
+    args = parser.parse_args()
+    return args
+
+def transcribe(dna_strand):
+    rna_strand = dna_strand.replace('T', 'U')
+
+    return rna_strand
+
+if __name__ == '__main__':
+    args = get_args()
+
+    if args.input_file:
+        with open(args.input_file) as f:
+            dna_strand = f.read()
+    else:
+        dna_strand = sample_dataset
+
+    print(transcribe(dna_strand))
