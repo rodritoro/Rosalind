@@ -29,8 +29,17 @@ def get_args():
     args = parser.parse_args()
     return args
 
+def calculate_probability(k, m, n):
+    dominant = k
+    heterozygous = m
+    recessive = n
+    total_individuals = k + m + n
 
 
+
+
+
+    return probability
 
 if __name__ == '__main__':
     args = get_args()

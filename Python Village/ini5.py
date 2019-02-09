@@ -1,4 +1,6 @@
 """
+Working with Files
+
 Problem
 Given: A file containing at most 1000 lines.
 
