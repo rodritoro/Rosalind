@@ -1,4 +1,6 @@
 """
+Mendel´s First Law
+
 Problem
 
 Probability is the mathematical study of randomly occurring phenomena. We will model such a phenomenon with a random variable, which is simply a variable that can take a number of different distinct outcomes depending on the result of an underlying random process.
