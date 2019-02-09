@@ -32,22 +32,36 @@ def get_args():
     return args
 
 def calculate_probability(k, m, n):
-    dominant = k
-    heterozygous = m
-    recessive = n
-    total_individuals = k + m + n
+    # k: dominant
+    # m: heterozygous
+    # n: recessive
 
+    t = k + m + n
 
+    # Calculate cases which do not give a dominant allele in offspring
+    p = [
+    (m / t) * ((m - 1) / (t - 1)) * 0.25,
+    (m / t) * (n / (t - 1)) * 0.5,
+    (n / t) * (m / (t - 1)) * 0.5,
+    (n / t) * ((n - 1) / (t - 1)) * 1,
+    ]
 
+    probability_dominant_offspring = 1 - (p[0] + p[1] + p[2] + p[3])
 
+    return probability_dominant_offspring
 
-    return probability
 
 if __name__ == '__main__':
     args = get_args()
 
     if args.input_file:
         with open(args.input_file) as f:
-            pass
+            k, m, n = f.read().split(' ')
     else:
-        pass
+        k, m, n = sample_dataset.split(' ')
+
+    k = float(k)
+    m = float(m)
+    n = float(n)
+
+    print(calculate_probability(k, m, n))
