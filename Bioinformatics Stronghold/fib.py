@@ -29,9 +29,9 @@ def get_args():
     return args
 
 def recurrence(n, k):
-    offspring = 1
-    pre_reproductive = 0
-    rabbit_pairs = 0
+    offspring = 1 # Fn-2
+    pre_reproductive = 0 # Fn-1
+    rabbit_pairs = 0 # Fn
     t = 0
     months = n
     litter_size = k
