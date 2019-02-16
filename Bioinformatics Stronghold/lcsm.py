@@ -82,7 +82,7 @@ def get_longest_common_substrings(strings):
             motif = string[i:j]
             if not motif in common_motifs and len(motif) > 1:
                 common_motifs.add(motif)
-    ids.remove(id)
+    ids.remove(chosen_id)
 
     while len(ids) != 0:
         motifs_to_remove = []
