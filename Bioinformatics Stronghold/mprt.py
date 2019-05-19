@@ -84,7 +84,8 @@ if __name__ == '__main__':
     args = get_args()
 
     if args.input_file:
-        protein_ids = args.input_file.split('\n')
+        with open(args.input_file) as f:
+            protein_ids = f.read().split('\n')
     else:
         protein_ids = sample_dataset.split('\n')
 
