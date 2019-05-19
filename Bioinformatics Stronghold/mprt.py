@@ -32,7 +32,8 @@ P20840_SAG1_YEAST
 import argparse
 import time
 import json
-import urllib as url
+import urllib.request as url
+import re
 
 sample_dataset = """A2Z669
 B5ZC00
@@ -48,12 +49,34 @@ def get_args():
     return args
 
 
-def get_amino_acids():
-    with open('codon_table.json') as f:
-        codon_table = json.loads(f.read())
-    amino_acids = {codon_table[key] for key in codon_table if len(codon_table[key]) == 1}
-    return amino_acids
+class Protein:
 
+    def __init__(self, id):
+        self.id = id
+        self.fasta = self.fetch_protein_fasta(self.id)
+        self.header, self.sequence = self.parse_fasta(self.fasta)
+        self.n_glycosylation = self.check_for_n_glycosylation(self.sequence)
+
+
+    def fetch_protein_fasta(self, id):
+        uniprot_id = id
+        fasta_address = f'https://www.uniprot.org/uniprot/{uniprot_id}.fasta'
+        fasta = url.urlopen(fasta_address).read().decode('UTF-8')
+        return fasta
+
+    def parse_fasta(self, fasta):
+        split_fasta = fasta.split('\n')
+        header = split_fasta[0]
+        sequence = ''.join(split_fasta[1:])
+        return header, sequence
+
+    def check_for_n_glycosylation(self, sequence):
+        m = re.finditer(r'N[^P][ST][^P]', sequence)
+        positions = []
+        if m:
+            for match in m:
+                positions.append(match.start() + 1)
+        return positions
 
 
 if __name__ == '__main__':
@@ -66,6 +89,7 @@ if __name__ == '__main__':
     else:
         pass
 
-
+test_protein = Protein('B5ZC00')
+print(test_protein.n_glycosylation)
 
 print('\nFinished in {} seconds\n'.format(time.time() - START))
