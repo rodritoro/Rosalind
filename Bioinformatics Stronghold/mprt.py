@@ -71,11 +71,13 @@ class Protein:
         return header, sequence
 
     def check_for_n_glycosylation(self, sequence):
-        m = re.finditer(r'N[^P][ST][^P]', sequence)
         positions = []
-        if m:
-            for match in m:
-                positions.append(str(match.start() + 1))
+        for i in range(len(sequence)):
+            if i + 4 < len(sequence):
+                segment = sequence[i:i + 4]
+                match = re.match(r'N[^P][ST][^P]', segment)
+                if match:
+                    positions.append(str(i + 1))
         return positions
 
 
