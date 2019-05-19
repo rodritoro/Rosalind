@@ -75,7 +75,7 @@ class Protein:
         positions = []
         if m:
             for match in m:
-                positions.append(match.start() + 1)
+                positions.append(str(match.start() + 1))
         return positions
 
 
@@ -84,12 +84,17 @@ if __name__ == '__main__':
     args = get_args()
 
     if args.input_file:
-        pass
-
+        protein_ids = args.input_file.split('\n')
     else:
-        pass
+        protein_ids = sample_dataset.split('\n')
 
-test_protein = Protein('B5ZC00')
-print(test_protein.n_glycosylation)
+    final_protein_ids = [prot_id for prot_id in protein_ids if len(prot_id) > 0]
 
-print('\nFinished in {} seconds\n'.format(time.time() - START))
+    for protein_id in final_protein_ids:
+        protein = Protein(protein_id)
+        if len(protein.n_glycosylation) > 0:
+            print(protein.id)
+            print(' '.join(protein.n_glycosylation))
+
+
+    print('\nFinished in {} seconds\n'.format(time.time() - START))
