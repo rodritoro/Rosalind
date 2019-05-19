@@ -31,7 +31,8 @@ P20840_SAG1_YEAST
 
 import argparse
 import time
-import random
+import json
+import urllib as url
 
 sample_dataset = """A2Z669
 B5ZC00
@@ -39,11 +40,20 @@ P07204_TRBM_HUMAN
 P20840_SAG1_YEAST
 """
 
+
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--input-file', required=False)
     args = parser.parse_args()
     return args
+
+
+def get_amino_acids():
+    with open('codon_table.json') as f:
+        codon_table = json.loads(f.read())
+    amino_acids = {codon_table[key] for key in codon_table if len(codon_table[key]) == 1}
+    return amino_acids
+
 
 
 if __name__ == '__main__':
@@ -55,5 +65,7 @@ if __name__ == '__main__':
 
     else:
         pass
+
+
 
 print('\nFinished in {} seconds\n'.format(time.time() - START))
