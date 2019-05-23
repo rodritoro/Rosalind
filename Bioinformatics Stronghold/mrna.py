@@ -20,6 +20,7 @@ Sample Output
 
 import argparse
 import time
+import json
 
 sample_dataset = 'MA'
 
@@ -37,7 +38,16 @@ def get_codon_table():
     return codon_table
 
 
-
+def calculate_possible_permutations(protein_string, codon_table):
+    permutations = 1
+    for amino_acid in protein_string:
+        codons = 0
+        for codon in codon_table:
+            if codon_table[codon] == amino_acid:
+                codons += 1
+        permutations *= codons
+    permutations *= 3
+    return permutations % 1000000
 
 
 if __name__ == '__main__':
@@ -45,9 +55,14 @@ if __name__ == '__main__':
     args = get_args()
 
     if args.input_file:
-        pass
-
+        with open(args.input_file) as f:
+            protein_string = f.read().strip()
     else:
-        pass
+        protein_string = sample_dataset
 
-print('\nFinished in {} seconds\n'.format(time.time() - START))
+    codon_table = get_codon_table()
+
+    answer = calculate_possible_permutations(protein_string, codon_table)
+    print(answer)
+
+    print('\nFinished in {} seconds\n'.format(time.time() - START))
