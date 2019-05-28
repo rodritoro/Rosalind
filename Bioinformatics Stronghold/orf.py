@@ -30,11 +30,18 @@ sample_dataset = """>Rosalind_99
 AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG
 """
 
+
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--input-file', required=False)
     args = parser.parse_args()
     return args
+
+
+def get_codon_table():
+    with open('codon_table.json') as f:
+        codon_table = json.loads(f.read())
+    return codon_table
 
 
 def parse_fasta(fasta, is_file=True):
