@@ -25,6 +25,7 @@ MTPRLGLESLLE
 
 import argparse
 import time
+import json
 
 sample_dataset = """>Rosalind_99
 AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG
@@ -75,6 +76,19 @@ def get_reverse_strand(forward_strand):
     return reverse_strand
 
 
+def transcribe(dna_string):
+    mrna_3_to_5 = ''
+    complements = {'A': 'U', 'T': 'A', 'G': 'C', 'C': 'G'}
+    for base in dna_string:
+        mrna_3_to_5 += complements[base]
+    mrna = mrna_3_to_5[::-1]
+    return mrna
+
+
+def translate(mrna_string, codon_table):
+    pass
+
+
 if __name__ == '__main__':
     START = time.time()
     args = get_args()
@@ -84,13 +98,18 @@ if __name__ == '__main__':
 
     else:
         strings = parse_fasta(sample_dataset, is_file=False)
-        print(strings)
+
+    codon_table = get_codon_table()
 
     for string_id in strings:
-        string = strings[string_id]
-        complement = get_reverse_strand(string)
-        print(string)
-        print(complement)
+        forward_strand = strings[string_id]
+        reverse_strand = get_reverse_strand(forward_strand)
+        forward_mrna = transcribe(forward_strand)
+        reverse_mrna = transcribe(reverse_strand)
+        forward_protein = translate(forward_mrna, codon_table)
+        reverse_protein = translate(reverse_mrna, codon_table)
+        print(forward_protein)
+
 
 
     print('\nFinished in {} seconds\n'.format(time.time() - START))
