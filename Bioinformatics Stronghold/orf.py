@@ -86,7 +86,38 @@ def transcribe(dna_string):
 
 
 def translate(mrna_string, codon_table):
-    pass
+    possible_translations = []
+    starting_positions = []
+    for i in range(0, len(mrna_string) - 2):
+        codon = mrna_string[i:i+3]
+        if codon == 'AUG':
+            starting_positions.append(i)
+    for start in starting_positions:
+        protein = ''
+        for i in range(start, len(mrna_string), 3):
+            stop = False
+            if i + 3 < len(mrna_string):
+                codon = mrna_string[i:i+3]
+                aa = codon_table[codon]
+                if aa == 'Stop':
+                    stop = True
+                    break
+                else:
+                    protein += aa
+        if stop:
+            possible_translations.append(protein)
+    return possible_translations
+
+
+def get_all_possible_protein_strings(forward_strand):
+    codon_table = get_codon_table()
+    reverse_strand = get_reverse_strand(forward_strand)
+    forward_mrna = transcribe(forward_strand)
+    reverse_mrna = transcribe(reverse_strand)
+    forward_proteins = translate(forward_mrna, codon_table)
+    reverse_proteins = translate(reverse_mrna, codon_table)
+    possible_proteins = set(forward_proteins + reverse_proteins)
+    return possible_proteins
 
 
 if __name__ == '__main__':
@@ -99,17 +130,10 @@ if __name__ == '__main__':
     else:
         strings = parse_fasta(sample_dataset, is_file=False)
 
-    codon_table = get_codon_table()
-
     for string_id in strings:
         forward_strand = strings[string_id]
-        reverse_strand = get_reverse_strand(forward_strand)
-        forward_mrna = transcribe(forward_strand)
-        reverse_mrna = transcribe(reverse_strand)
-        forward_protein = translate(forward_mrna, codon_table)
-        reverse_protein = translate(reverse_mrna, codon_table)
-        print(forward_protein)
-
-
+        output = get_all_possible_protein_strings(forward_strand)
+        for o in output:
+            print(o)
 
     print('\nFinished in {} seconds\n'.format(time.time() - START))
