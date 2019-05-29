@@ -94,8 +94,8 @@ def translate(mrna_string, codon_table):
             starting_positions.append(i)
     for start in starting_positions:
         protein = ''
+        stop = False
         for i in range(start, len(mrna_string), 3):
-            stop = False
             if i + 3 < len(mrna_string):
                 codon = mrna_string[i:i+3]
                 aa = codon_table[codon]
@@ -109,8 +109,7 @@ def translate(mrna_string, codon_table):
     return possible_translations
 
 
-def get_all_possible_protein_strings(forward_strand):
-    codon_table = get_codon_table()
+def get_all_possible_protein_strings(forward_strand, codon_table):
     reverse_strand = get_reverse_strand(forward_strand)
     forward_mrna = transcribe(forward_strand)
     reverse_mrna = transcribe(reverse_strand)
@@ -129,9 +128,11 @@ if __name__ == '__main__':
     else:
         strings = parse_fasta(sample_dataset, is_file=False)
 
+    codon_table = get_codon_table()
+
     for string_id in strings:
         forward_strand = strings[string_id]
-        output = get_all_possible_protein_strings(forward_strand)
+        output = get_all_possible_protein_strings(forward_strand, codon_table)
         for o in output:
             print(o)
 
