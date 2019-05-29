@@ -125,8 +125,7 @@ if __name__ == '__main__':
     args = get_args()
 
     if args.input_file:
-        pass
-
+        strings = parse_fasta(args.input_file)
     else:
         strings = parse_fasta(sample_dataset, is_file=False)
 
