@@ -59,6 +59,8 @@ def calculate_permutations(n):
 
     return final_permutations
 
+# TODO Refactor "calculate_permutations" so it doesn't create all possible permutations, only those which
+#   are required (those which do not include repeated numbers in the permutation)
 
 if __name__ == '__main__':
     START = time.time()
