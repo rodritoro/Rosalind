@@ -31,14 +31,48 @@ def get_args():
     args = parser.parse_args()
     return args
 
+def calculate_permutations(n):
+    permutations = []
+    counter = 1
+    while counter <= n:
+        print(counter)
+        if len(permutations) < 1:
+            for i in range(1, n + 1):
+                permutations.append(str(i))
+        else:
+            new_permutations = []
+            for permutation in permutations:
+                for i in range(1, n + 1):
+                    new_permutations.append(permutation + str(i))
+            permutations = new_permutations
+        counter += 1
+
+    final_permutations = []
+    for permutation in permutations:
+        no_repeats = True
+        for n in permutation:
+            amount = permutation.count(n)
+            if amount > 1:
+                no_repeats = False
+        if no_repeats:
+            final_permutations.append(permutation)
+
+    return final_permutations
+
 
 if __name__ == '__main__':
     START = time.time()
     args = get_args()
 
     if args.input_file:
-        pass
+        with open(args.input_file) as f:
+            n = int(f.read().strip())
     else:
-        pass
+        n = int(sample_dataset)
+
+    permutations = calculate_permutations(8)
+    print(len(permutations))
+    for permutation in permutations:
+        print(' '.join(permutation))
 
     print('\nFinished in {} seconds\n'.format(time.time() - START))
