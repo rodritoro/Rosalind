@@ -78,5 +78,3 @@ if __name__ == '__main__':
         print(' '.join(permutation))
 
     print('\nFinished in {} seconds\n'.format(time.time() - START))
-
-# This is a user
