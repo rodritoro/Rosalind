@@ -35,7 +35,6 @@ def calculate_permutations(n):
     permutations = []
     counter = 1
     while counter <= n:
-        print(counter)
         if len(permutations) < 1:
             for i in range(1, n + 1):
                 permutations.append(str(i))
@@ -70,7 +69,7 @@ if __name__ == '__main__':
     else:
         n = int(sample_dataset)
 
-    permutations = calculate_permutations(8)
+    permutations = calculate_permutations(n)
     print(len(permutations))
     for permutation in permutations:
         print(' '.join(permutation))
