@@ -31,6 +31,7 @@ def get_args():
     args = parser.parse_args()
     return args
 
+
 def calculate_permutations(n):
     permutations = []
     counter = 1
