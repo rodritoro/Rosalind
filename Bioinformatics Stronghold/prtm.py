@@ -31,6 +31,13 @@ def get_args():
     return args
 
 
+def calculate_mass(protein, mass_table):
+    total_weight = 0
+    for amino_acid in protein:
+        total_weight += mass_table[amino_acid]
+    return total_weight
+
+
 if __name__ == '__main__':
     START = time.time()
     args = get_args()
