@@ -35,6 +35,15 @@ if __name__ == '__main__':
     START = time.time()
     args = get_args()
 
+    with open('monoisotopic_mass_table.csv') as csv:
+        lines = csv.readlines()
+        monoisotopic_mass_table = {}
+        for line in lines:
+            split = line.split(',')
+            amino_acid = split[0]
+            weight = float(split[1])
+            monoisotopic_mass_table[amino_acid] = weight
+
     if args.input_file:
         pass
     else:
