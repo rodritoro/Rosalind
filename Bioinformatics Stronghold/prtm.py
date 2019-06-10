@@ -21,8 +21,7 @@ import argparse
 import time
 import json
 
-sample_dataset = """
-"""
+sample_dataset = 'SKADYEK'
 
 
 def get_args():
