@@ -53,7 +53,8 @@ if __name__ == '__main__':
             monoisotopic_mass_table[amino_acid] = weight
 
     if args.input_file:
-        pass
+        with open(args.input_file) as f:
+            protein = f.readline().strip()
     else:
         protein = sample_dataset
 
