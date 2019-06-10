@@ -54,6 +54,8 @@ if __name__ == '__main__':
     if args.input_file:
         pass
     else:
-        pass
+        protein = sample_dataset
+
+    print(calculate_mass(protein, monoisotopic_mass_table))
 
     print('\nFinished in {} seconds\n'.format(time.time() - START))
