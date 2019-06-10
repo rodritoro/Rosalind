@@ -19,7 +19,7 @@ Sample Output
 
 import argparse
 import time
-import json
+import numpy as np
 
 sample_dataset = 'SKADYEK'
 
@@ -35,7 +35,8 @@ def calculate_mass(protein, mass_table):
     total_weight = 0
     for amino_acid in protein:
         total_weight += mass_table[amino_acid]
-    return total_weight
+    rounded_weight = np.round(total_weight, decimals=3)
+    return rounded_weight
 
 
 if __name__ == '__main__':
